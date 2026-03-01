@@ -43,13 +43,14 @@ func TestAddGetDelete(t *testing.T) {
 	// добавьте новую посылку в БД, убедитесь в отсутствии ошибки и наличии идентификатора
 	parcID, err := store.Add(parcel)
 	require.NoError(t, err)
-	assert.Greater(t, parcID, 0)
+	require.Greater(t, parcID, 0)
 
 	// get
 	// получите только что добавленную посылку, убедитесь в отсутствии ошибки
 	// проверьте, что значения всех полей в полученном объекте совпадают со значениями полей в переменной parcel
 	parcGet, err := store.Get(parcID)
 	require.NoError(t, err)
+	assert.Equal(t, parcGet.Number, parcID)
 	assert.Equal(t, parcGet.Client, parcel.Client)
 	assert.Equal(t, parcGet.Status, parcel.Status)
 	assert.Equal(t, parcGet.Address, parcel.Address)

@@ -52,21 +52,21 @@ func (s ParcelStore) GetByClient(client int) ([]Parcel, error) {
 		return nil, fmt.Errorf("ошибка считывания данных по клиенту %w", err)
 	}
 
-	var (
-		res   []Parcel
-		count int
-	)
+	var res []Parcel
 
 	for rows.Next() {
 		p := Parcel{}
-		count++
 
 		err := rows.Scan(&p.Number, &p.Client, &p.Status, &p.Address, &p.CreatedAt)
 		if err != nil {
-			return nil, fmt.Errorf("ошибка считывания данных по клиенту во время %d итерации %w", count, err)
+			return nil, fmt.Errorf("ошибка считывания данных по клиенту %w", err)
 		}
 
 		res = append(res, p)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("ошибка при итерации по строкам данных по клиенту %w", err)
 	}
 
 	return res, nil
