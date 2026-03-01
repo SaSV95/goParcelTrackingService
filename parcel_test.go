@@ -50,11 +50,11 @@ func TestAddGetDelete(t *testing.T) {
 	// проверьте, что значения всех полей в полученном объекте совпадают со значениями полей в переменной parcel
 	parcGet, err := store.Get(parcID)
 	require.NoError(t, err)
-	assert.Equal(t, parcGet.Number, parcID)
-	assert.Equal(t, parcGet.Client, parcel.Client)
-	assert.Equal(t, parcGet.Status, parcel.Status)
-	assert.Equal(t, parcGet.Address, parcel.Address)
-	assert.Equal(t, parcGet.CreatedAt, parcel.CreatedAt)
+	assert.Equal(t, parcID, parcGet.Number)
+	assert.Equal(t, parcel.Client, parcGet.Client)
+	assert.Equal(t, parcel.Status, parcGet.Status)
+	assert.Equal(t, parcel.Address, parcGet.Address)
+	assert.Equal(t, parcel.CreatedAt, parcGet.CreatedAt)
 
 	// delete
 	// удалите добавленную посылку, убедитесь в отсутствии ошибки
